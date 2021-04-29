@@ -15,13 +15,13 @@ public class NewTableNumberOfUsersWithAgeMigration {
 
     private static final String QUERY = "select count(u.age), u.age from users u " +
             "group by u.age order by count(u.age) desc";
-    private static final String FILENAME = "NewTableNumberOfUsersWithAgeMigration.csv";
+    public static final String PATH = "NewTableNumberOfUsersWithAgeMigration.csv";
 
     public static void main(String[] args) throws IOException {
         QueryExecutor<UsersCountByAge> queryExecutor = new UsersCountByAgeQueryExecutor();
         ConnectionProvider provider = new ConnectionProvider();
         CsvConverter<UsersCountByAge> csvConverter = new UsersCountByAgeCsvConverter();
         List<UsersCountByAge> usersCountByAges = queryExecutor.execute(provider.getConnection(), QUERY);
-        FileWriter.write(csvConverter.getCsvForList(usersCountByAges), FILENAME);
+        FileWriter.write(csvConverter.getCsvForList(usersCountByAges), PATH);
     }
 }

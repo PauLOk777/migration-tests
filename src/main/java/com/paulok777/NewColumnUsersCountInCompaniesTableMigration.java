@@ -14,13 +14,13 @@ import java.util.List;
 public class NewColumnUsersCountInCompaniesTableMigration {
 
     private static final String QUERY = "select * from companies";
-    private static final String FILENAME = "NewColumnUsersCountInCompaniesTableMigration.csv";
+    public static final String PATH = "NewColumnUsersCountInCompaniesTableMigration.csv";
 
     public static void main(String[] args) throws IOException {
         QueryExecutor<Company> queryExecutor = new CompanyQueryExecutor();
         ConnectionProvider provider = new ConnectionProvider();
         CsvConverter<Company> csvConverter = new CompanyCsvConverter();
         List<Company> companies = queryExecutor.execute(provider.getConnection(), QUERY);
-        FileWriter.write(csvConverter.getCsvForList(companies), FILENAME);
+        FileWriter.write(csvConverter.getCsvForList(companies), PATH);
     }
 }
