@@ -1,4 +1,4 @@
-package com.paulok777.queryexecutors;
+package com.paulok777.dao;
 
 import com.paulok777.mappers.CompanyMapper;
 import com.paulok777.models.Company;
@@ -10,16 +10,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyQueryExecutor implements QueryExecutor<Company> {
+public class CompanyDao {
 
-    private CompanyMapper mapper = new CompanyMapper();
+    private static final String FIND_ALL = "select * from companies";
 
-    @Override
-    public List<Company> execute(Connection connection, String query) {
+    private CompanyMapper mapper;
+    private Connection connection;
+
+    public CompanyDao(Connection connection) {
+        this.connection = connection;
+        this.mapper = new CompanyMapper();
+    }
+
+    public List<Company> findAll() {
         List<Company> companies = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
-            ResultSet rs = statement.executeQuery(query);
+            ResultSet rs = statement.executeQuery(FIND_ALL);
             while (rs.next()) {
                 companies.add(mapper.map(rs));
             }
