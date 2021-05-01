@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CompanyDao {
 
-    private static final String FIND_ALL = "select * from companies";
+    private static final String FIND_ALL = "select * from companies order by id";
 
     private CompanyMapper mapper;
     private Connection connection;
